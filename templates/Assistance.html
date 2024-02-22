@@ -1,0 +1,17 @@
+{% extends 'main_layout.html' %}
+
+{% block content %}
+<div class="container-fluid resources " style="padding: 7% 2%; ">
+    <a href="{{ url_for('urgenthelp') }}"><button class="btn my-2 my-sm-0 Urgenthelpbtn" type="button">Urgent Help</button></a>
+    <h1>Assistance</h1>
+    <div class="row p-4">
+        <div class="col">
+            <h3>Lorem ipsum</h3>
+            <p>Morbi varius varius ante ut aliquet. Pellentesque in accumsan magna, non congue neque. Ut sit amet magna nec orci lobortis mollis eget sit amet mi. Nullam in consectetur ligula. Fusce at convallis arcu, sed porta diam. Sed pellentesque ornare massa vel efficitur. Curabitur dignissim condimentum massa id efficitur. Suspendisse ipsum arcu, porttitor vitae vehicula vitae, dictum a diam. Cras blandit nisi nec convallis fringilla. Maecenas massa augue, lacinia at consectetur fringilla, elementum a ligula. Mauris dolor nisl, imperdiet nec lacinia ut, viverra eu felis. Vestibulum dignissim, ex ac bibendum facilisis, nisi lectus tristique augue, eu maximus nulla sem eget sapien.</p>
+        </div>
+        <div class="col" >
+            <img src="../static/img/Resourcesimg1.webp" width="70%" style="margin-left: 60px;">
+        </div>
+    </div>
+</div>
+{% endblock %}
