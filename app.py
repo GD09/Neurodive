@@ -58,8 +58,7 @@ with app.app_context():
 
 class PostForm(FlaskForm):
     title = StringField('Title', validators=[DataRequired()], render_kw={'class': 'form-control'})
-    content = TextAreaField('Content', validators=[DataRequired()], 
-    render_kw={'class': 'form-control','rows': 8})
+    content = TextAreaField('Content', validators=[DataRequired()], render_kw={'class': 'form-control','rows': 8})
     category = SelectField('Category', choices=[
         ('General', 'General'),
         ('School', 'School'),
@@ -165,6 +164,7 @@ def community():
     user = User.query.get(user_id)
     username = user.username if user else None
 
+    # Fetch categories for the post form
     predefined_categories = [
         ('General', 'General'),
         ('School', 'School'),
@@ -175,6 +175,7 @@ def community():
         ('Work', 'Work'),
     ]
 
+    # Fetch posts from the database
     categories = request.args.getlist('category')
     if categories:
         filters = [Post.category == category for category in categories]
@@ -182,16 +183,16 @@ def community():
     else:
         posts_query = Post.query
 
+    # Sort posts by timestamp or likes
     sort_by = request.args.get('sort_by')
     if sort_by == 'likes':
-        posts_query = posts_query.outerjoin(Like).group_by(Post.id).order_by
-        (db.func.count(Like.id).desc())
+        posts_query = posts_query.outerjoin(Like).group_by(Post.id).order_by(db.func.count(Like.id).desc())
     else:
         posts_query = posts_query.order_by(Post.timestamp.desc())
 
     posts = posts_query.all()
 
-
+    # Handle post creation and comment addition
     post_form = PostForm()
 
     if request.method == 'POST':
@@ -211,8 +212,6 @@ def community():
 
 @app.route('/view_and_add_comments/<int:post_id>', methods=['GET', 'POST'])
 def view_and_add_comments(post_id):
-
-
     current_user = session.get('user')
     username = None
     if current_user:
@@ -231,7 +230,7 @@ def view_and_add_comments(post_id):
 
     if not user:
         flash('User not found.', 'error')
-        return redirect(url_for('Login'))
+        return redirect(url_for('community'))
 
     post = Post.query.get(post_id)
 
@@ -267,6 +266,7 @@ def like_post(post_id):
         flash('Post not found.', 'error')
         return redirect(url_for('home'))
 
+    # Check if the user has already liked the post
     like = Like.query.filter_by(post_id=post_id, user_id=user_id).first()
     if like:
         # User already liked the post, so unlike it

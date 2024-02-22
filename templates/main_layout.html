@@ -28,8 +28,8 @@
 <body>
     <Section>
         <nav class="navbar fixed-top navbar-expand-lg ">
-            <a class="navbar-brand" href="{{ url_for('home') }}" style="text-decoration: none; color:black;">
-                Neurodive
+            <a class="navbar-brand" href="#">
+                <img src="../static/img/neurodive_logo.png" alt="" width="184" height="42" class="logo">
             </a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
                 aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -47,7 +47,6 @@
                         <a class="dropbtn nav-link">Resources <i class="fas fa-caret-down"></i></a>
                         <div class="dropdown-content">
                             <a href="{{ url_for('Sensory_Calming_Activites') }}">Sensory Calming Activites</a>
-                            <a href="{{ url_for('Assistance') }}">Assistance</a>
                         </div>
                     </li>
                     <li class="nav-item">
